@@ -44,21 +44,23 @@ function App() {
   },[messages, MyScroll.current])
   const SubmitHandler = async (e) => {
     e.preventDefault();
-    try {
-      setMessage("");
-      await addDoc(collection(db, "Messages"), {
-        text: message,
-        uid: user.uid,
-        uri: user.photoURL,
-        createdAt: serverTimestamp(),
-        name:user.displayName,
-        
-      });
-      MyScroll.current.scrollIntoView({ behavior: "smooth" });
-    }
-    catch (error) {
-      alert(error);
-    }
+    if(message.trim()){
+      try {
+        setMessage("");
+        await addDoc(collection(db, "Messages"), {
+          text: message,
+          uid: user.uid,
+          uri: user.photoURL,
+          createdAt: serverTimestamp(),
+          name:user.displayName,
+          
+        });
+        MyScroll.current.scrollIntoView({ behavior: "smooth" });
+      }
+      catch (error) {
+        alert(error);
+      }
+  }
   }
   return (
     <Box bg={"red.50"}>
